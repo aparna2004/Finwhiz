@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import com.example.expensetracker.ui.theme.*
+import com.example.expensetracker.widget.ExpenseTextView
 import org.w3c.dom.Text
 
 @Composable
@@ -53,8 +54,8 @@ fun HomeScreen(){
                 })
             {
                 Column(modifier = Modifier.align(Alignment.CenterStart)) {
-                    Text(text = "Good Afternoon", fontSize = 16.sp, color = Color.White)
-                    Text(text = "Aparna", fontSize = 20.sp, fontWeight = FontWeight.Bold, color = Color.White)
+                    ExpenseTextView(text = "Good Afternoon", fontSize = 16.sp, color = Color.White)
+                    ExpenseTextView(text = "Aparna", fontSize = 20.sp, fontWeight = FontWeight.Bold, color = Color.White)
                 }
                 Image(
                     painter = painterResource(id = R.drawable.ic_notification),
@@ -94,8 +95,8 @@ fun CardItem(modifier: Modifier){
     ) {
         Box(modifier = Modifier.fillMaxWidth()) {
             Column {
-                Text(text = "Total Balance", fontSize = 16.sp, color = Color.White)
-                Text(text = "$5000", fontSize = 20.sp, fontWeight = FontWeight.Bold, color = Color.White)
+                ExpenseTextView(text = "Total Balance", fontSize = 16.sp, color = Color.White)
+                ExpenseTextView(text = "$5000", fontSize = 20.sp, fontWeight = FontWeight.Bold, color = Color.White)
             }
             Image(
                 painter = painterResource(id = R.drawable.dots_menu),
@@ -139,11 +140,11 @@ fun CardRowItem(modifier: Modifier, title: String, amount: String, imaget: Int) 
                 contentDescription = null,
             )
             Spacer(modifier = Modifier.size(8.dp))
-            Text(text = title, fontSize = 16.sp, color = Color.White)
+            ExpenseTextView(text = title, fontSize = 16.sp, color = Color.White)
 
         }
         Spacer(modifier = Modifier.size(4.dp))
-        Text(text = amount, fontSize = 20.sp, color = Color.White)
+        ExpenseTextView(text = amount, fontSize = 20.sp, color = Color.White)
     }
 }
 
@@ -151,8 +152,8 @@ fun CardRowItem(modifier: Modifier, title: String, amount: String, imaget: Int) 
 fun TransactionList(modifier: Modifier) {
     Column(modifier = modifier.padding(horizontal = 16.dp)) {
         Box(modifier = Modifier.fillMaxWidth()) {
-            Text(text = "Recent Transactions", fontSize = 20.sp)
-            Text(text = "See All", fontSize = 16.sp, modifier = Modifier.align(Alignment.CenterEnd))
+            ExpenseTextView(text = "Recent Transactions", fontSize = 20.sp)
+            ExpenseTextView(text = "See All", fontSize = 16.sp, modifier = Modifier.align(Alignment.CenterEnd))
         }
         TransactionItem( title = "Netflix","$ 200", icon = R.drawable.ic_netflix, date = "Today", color = Color.Red)
         TransactionItem( title = "Starbucks","$ 200", icon = R.drawable.ic_starbucks, date = "Yesterday", color = Color.Red)
@@ -171,12 +172,12 @@ fun TransactionItem(title: String, amount: String, icon: Int, date: String, colo
             )
             Spacer(modifier = Modifier.size(8.dp))
             Column {
-                Text(text = title, fontSize = 16.sp)
-                Text(text = date, fontSize = 12.sp)
+                ExpenseTextView(text = title, fontSize = 16.sp)
+                ExpenseTextView(text = date, fontSize = 12.sp)
 
             }
         }
-        Text(text = amount, fontSize = 20.sp, modifier = Modifier.align(Alignment.CenterEnd), color = color)
+        ExpenseTextView(text = amount, fontSize = 20.sp, modifier = Modifier.align(Alignment.CenterEnd), color = color)
     }
 }
 

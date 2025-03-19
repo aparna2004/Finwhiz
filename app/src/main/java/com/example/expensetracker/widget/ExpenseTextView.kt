@@ -1,4 +1,4 @@
-package com.codewithfk.expensetracker.android.widget
+package com.example.expensetracker.widget
 
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.Text

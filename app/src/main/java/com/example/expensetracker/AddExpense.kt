@@ -15,7 +15,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -28,6 +27,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
+import com.example.expensetracker.widget.ExpenseTextView
 import java.util.zip.DataFormatException
 
 @Composable
@@ -56,7 +56,7 @@ fun AddExpense() {
                     contentDescription = null,
                     modifier = Modifier.align(Alignment.CenterStart)
                 )
-                Text(
+                ExpenseTextView(
                     text = "Add Expense",
                     fontWeight = FontWeight.Bold,
                     fontSize = 20.sp,
@@ -91,25 +91,25 @@ fun DataForm(modifier: Modifier) {
             .padding(16.dp)
             .verticalScroll(rememberScrollState())
     ) {
-        Text(text = "Type", fontSize = 14.sp, color = Color.Gray)
+        ExpenseTextView(text = "Type", fontSize = 14.sp, color = Color.Gray)
         Spacer(modifier = Modifier.size(4.dp))
         OutlinedTextField(value = "", onValueChange = {}, modifier = Modifier.fillMaxWidth())
         Spacer(modifier = Modifier.size(16.dp))
 
-        Text(text = "Name", fontSize = 14.sp, color = Color.Gray)
+        ExpenseTextView(text = "Name", fontSize = 14.sp, color = Color.Gray)
         Spacer(modifier = Modifier.size(4.dp))
         OutlinedTextField(value = "", onValueChange = {}, modifier = Modifier.fillMaxWidth())
         Spacer(modifier = Modifier.size(16.dp))
-        Text(text = "Category", fontSize = 14.sp, color = Color.Gray)
+        ExpenseTextView(text = "Category", fontSize = 14.sp, color = Color.Gray)
         Spacer(modifier = Modifier.size(4.dp))
         OutlinedTextField(value = "", onValueChange = {}, modifier = Modifier.fillMaxWidth())
         Spacer(modifier = Modifier.size(16.dp))
 
-        Text(text = "Amount", fontSize = 14.sp, color = Color.Gray)
+        ExpenseTextView(text = "Amount", fontSize = 14.sp, color = Color.Gray)
         Spacer(modifier = Modifier.size(4.dp))
         OutlinedTextField(value = "", onValueChange = {}, modifier = Modifier.fillMaxWidth())
         Spacer(modifier = Modifier.size(16.dp))
-        Text(text = "Date", fontSize = 14.sp, color = Color.Gray)
+        ExpenseTextView(text = "Date", fontSize = 14.sp, color = Color.Gray)
         Spacer(modifier = Modifier.size(4.dp))
         OutlinedTextField(value = "", onValueChange = {}, modifier = Modifier.fillMaxWidth())
         Spacer(modifier = Modifier.size(16.dp))
@@ -117,7 +117,7 @@ fun DataForm(modifier: Modifier) {
             modifier = Modifier
                 .clip(RoundedCornerShape(2.dp))
                 .fillMaxWidth()) {
-            Text(
+            ExpenseTextView(
                 text = "Add Expense",
                 fontSize = 16.sp,
                 color = Color.White
