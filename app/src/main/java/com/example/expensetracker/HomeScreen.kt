@@ -22,6 +22,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.input.pointer.motionEventSpy
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -29,11 +30,15 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import com.example.expensetracker.ui.theme.*
+import com.example.expensetracker.viewmodel.HomeViewModel
+import com.example.expensetracker.viewmodel.HomeViewModelFactory
 import com.example.expensetracker.widget.ExpenseTextView
 import org.w3c.dom.Text
 
 @Composable
 fun HomeScreen(){
+
+    val viewModel :HomeViewModel = HomeViewModelFactory(LocalContext.current).create(HomeViewModel::class.java)
     Surface(modifier = Modifier.fillMaxSize()) {
         ConstraintLayout(modifier = Modifier.fillMaxSize()) {
             val (nameRow, list, card, topBar, add) = createRefs()
