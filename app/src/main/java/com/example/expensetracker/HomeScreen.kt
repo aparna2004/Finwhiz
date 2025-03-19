@@ -172,12 +172,12 @@ fun TransactionItem(title: String, amount: String, icon: Int, date: String, colo
             )
             Spacer(modifier = Modifier.size(8.dp))
             Column {
-                ExpenseTextView(text = title, fontSize = 16.sp)
+                ExpenseTextView(text = title, fontSize = 16.sp, fontWeight = FontWeight.Medium)
                 ExpenseTextView(text = date, fontSize = 12.sp)
 
             }
         }
-        ExpenseTextView(text = amount, fontSize = 20.sp, modifier = Modifier.align(Alignment.CenterEnd), color = color)
+        ExpenseTextView(text = amount, fontSize = 20.sp, modifier = Modifier.align(Alignment.CenterEnd), color = color, fontWeight = FontWeight.SemiBold)
     }
 }
 
