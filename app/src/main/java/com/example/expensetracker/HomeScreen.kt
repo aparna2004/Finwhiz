@@ -18,6 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.tooling.preview.Preview;
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.input.pointer.motionEventSpy
@@ -85,6 +86,7 @@ fun CardItem(modifier: Modifier){
     Column(modifier = modifier
         .padding(16.dp)
         .fillMaxWidth()
+        .shadow(16.dp)
         .height(200.dp)
         .clip(RoundedCornerShape(16.dp))
         .background(Zinc)
