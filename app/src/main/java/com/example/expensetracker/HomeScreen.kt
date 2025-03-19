@@ -10,18 +10,18 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable;
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.tooling.preview.Preview;
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.input.pointer.motionEventSpy
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -29,11 +29,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
+import com.example.expensetracker.data.model.ExpenseEntity
 import com.example.expensetracker.ui.theme.*
 import com.example.expensetracker.viewmodel.HomeViewModel
 import com.example.expensetracker.viewmodel.HomeViewModelFactory
 import com.example.expensetracker.widget.ExpenseTextView
-import org.w3c.dom.Text
+import kotlinx.coroutines.flow.MutableStateFlow
 
 @Composable
 fun HomeScreen(){
@@ -68,26 +69,34 @@ fun HomeScreen(){
                     modifier = Modifier.align(Alignment.CenterEnd)
                 )
             }
+            val state = MutableStateFlow<List<ExpenseEntity>>(emptyList())
+
+            val expenses = viewModel.getTotalExpense(state.value)
+            val income = viewModel.getTotalIncome(state.value)
+            val balance = viewModel.getBalance(state.value)
 
             CardItem(modifier = Modifier.constrainAs(card){
                 top.linkTo(nameRow.bottom)
                 start.linkTo(parent.start)
                 end.linkTo(parent.end)
-            })
+            }, balance, income, expenses)
 
-            TransactionList(modifier = Modifier.fillMaxWidth().constrainAs(list){
-                top.linkTo(card.bottom)
-                start.linkTo(parent.start)
-                end.linkTo(parent.end)
-                bottom.linkTo(parent.bottom)
-                height = Dimension.fillToConstraints
-            })
+            TransactionList(modifier = Modifier
+                .fillMaxWidth()
+                .constrainAs(list) {
+                    top.linkTo(card.bottom)
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                    bottom.linkTo(parent.bottom)
+                    height = Dimension.fillToConstraints
+                } , list = state.value
+            )
         }
     }
 }
 
 @Composable
-fun CardItem(modifier: Modifier){
+fun CardItem(modifier: Modifier, balance: String, income: String, expenses: String){
     Column(modifier = modifier
         .padding(16.dp)
         .fillMaxWidth()
@@ -101,7 +110,7 @@ fun CardItem(modifier: Modifier){
         Box(modifier = Modifier.fillMaxWidth()) {
             Column {
                 ExpenseTextView(text = "Total Balance", fontSize = 16.sp, color = Color.White)
-                ExpenseTextView(text = "$5000", fontSize = 20.sp, fontWeight = FontWeight.Bold, color = Color.White)
+                ExpenseTextView(text = balance, fontSize = 20.sp, fontWeight = FontWeight.Bold, color = Color.White)
             }
             Image(
                 painter = painterResource(id = R.drawable.dots_menu),
@@ -118,7 +127,7 @@ fun CardItem(modifier: Modifier){
                 modifier = Modifier
                     .align(Alignment.CenterStart),
                 title = "Income",
-                amount = "500000",
+                amount = income,
                 imaget = R.drawable.ic_income
             )
             Spacer(modifier = Modifier.size(8.dp))
@@ -126,7 +135,7 @@ fun CardItem(modifier: Modifier){
                 modifier = Modifier
                     .align(Alignment.CenterEnd),
                 title = "Expense",
-                amount = "20000",
+                amount = expenses,
                 imaget = R.drawable.ic_expense
             )
 
@@ -154,16 +163,24 @@ fun CardRowItem(modifier: Modifier, title: String, amount: String, imaget: Int) 
 }
 
 @Composable
-fun TransactionList(modifier: Modifier) {
-    Column(modifier = modifier.padding(horizontal = 16.dp)) {
-        Box(modifier = Modifier.fillMaxWidth()) {
-            ExpenseTextView(text = "Recent Transactions", fontSize = 20.sp)
-            ExpenseTextView(text = "See All", fontSize = 16.sp, modifier = Modifier.align(Alignment.CenterEnd))
+fun TransactionList(modifier: Modifier, list: List<ExpenseEntity>) {
+    LazyColumn (modifier = modifier.padding(horizontal = 16.dp)) {
+        item {
+            Box(modifier = Modifier.fillMaxWidth()) {
+                ExpenseTextView(text = "Recent Transactions", fontSize = 20.sp)
+                ExpenseTextView(text = "See All", fontSize = 16.sp, modifier = Modifier.align(Alignment.CenterEnd))
+            }
         }
-        TransactionItem( title = "Netflix","$ 200", icon = R.drawable.ic_netflix, date = "Today", color = Color.Red)
-        TransactionItem( title = "Starbucks","$ 200", icon = R.drawable.ic_starbucks, date = "Yesterday", color = Color.Red)
-        TransactionItem( title = "Netflix","$ 25", icon = R.drawable.ic_youtube, date = "Yesterday", color = Color.DarkGray)
-        TransactionItem( title = "Paypal","$ 20", icon = R.drawable.ic_paypal, date = "Today", color = Color.Red)
+
+        items(list) { item ->
+            TransactionItem(
+                title = item.title,
+                amount = item.amount.toString(),
+                icon = if (item.type == "Income") R.drawable.ic_paypal else R.drawable.ic_netflix,
+                date = item.date,
+                color = if (item.type == "Income") Color.Green else Color.Red
+            )
+        }
     }
 }
 
