@@ -31,7 +31,6 @@ import androidx.constraintlayout.compose.Dimension
 import com.example.expensetracker.ui.theme.*
 import org.w3c.dom.Text
 
-
 @Composable
 fun HomeScreen(){
     Surface(modifier = Modifier.fillMaxSize()) {

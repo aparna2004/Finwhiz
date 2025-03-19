@@ -4,11 +4,16 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Button
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -24,7 +29,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import java.util.zip.DataFormatException
-
 
 @Composable
 fun AddExpense() {
@@ -47,6 +51,11 @@ fun AddExpense() {
                     end.linkTo(parent.end)
                 })
             {
+                Image(
+                    painter = painterResource(id = R.drawable.ic_back),
+                    contentDescription = null,
+                    modifier = Modifier.align(Alignment.CenterStart)
+                )
                 Text(
                     text = "Add Expense",
                     fontWeight = FontWeight.Bold,
@@ -80,9 +89,40 @@ fun DataForm(modifier: Modifier) {
             .clip(RoundedCornerShape(16.dp))
             .background(Color.White)
             .padding(16.dp)
-            .height(100.dp)
+            .verticalScroll(rememberScrollState())
     ) {
+        Text(text = "Type", fontSize = 14.sp, color = Color.Gray)
+        Spacer(modifier = Modifier.size(4.dp))
+        OutlinedTextField(value = "", onValueChange = {}, modifier = Modifier.fillMaxWidth())
+        Spacer(modifier = Modifier.size(16.dp))
 
+        Text(text = "Name", fontSize = 14.sp, color = Color.Gray)
+        Spacer(modifier = Modifier.size(4.dp))
+        OutlinedTextField(value = "", onValueChange = {}, modifier = Modifier.fillMaxWidth())
+        Spacer(modifier = Modifier.size(16.dp))
+        Text(text = "Category", fontSize = 14.sp, color = Color.Gray)
+        Spacer(modifier = Modifier.size(4.dp))
+        OutlinedTextField(value = "", onValueChange = {}, modifier = Modifier.fillMaxWidth())
+        Spacer(modifier = Modifier.size(16.dp))
+
+        Text(text = "Amount", fontSize = 14.sp, color = Color.Gray)
+        Spacer(modifier = Modifier.size(4.dp))
+        OutlinedTextField(value = "", onValueChange = {}, modifier = Modifier.fillMaxWidth())
+        Spacer(modifier = Modifier.size(16.dp))
+        Text(text = "Date", fontSize = 14.sp, color = Color.Gray)
+        Spacer(modifier = Modifier.size(4.dp))
+        OutlinedTextField(value = "", onValueChange = {}, modifier = Modifier.fillMaxWidth())
+        Spacer(modifier = Modifier.size(16.dp))
+        Button(onClick = {},
+            modifier = Modifier
+                .clip(RoundedCornerShape(2.dp))
+                .fillMaxWidth()) {
+            Text(
+                text = "Add Expense",
+                fontSize = 16.sp,
+                color = Color.White
+            )
+        }
     }
 }
 
